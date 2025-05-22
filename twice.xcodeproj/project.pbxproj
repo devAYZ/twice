@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3AD20DBD2DDF0E7400F8E539 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3AD20DBC2DDF0E7400F8E539 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		3AD20DA02DDF0DBF00F8E539 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		3AD20D8F2DDF0DBC00F8E539 /* twice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD20D9F2DDF0DBF00F8E539 /* twiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = twiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD20DA92DDF0DBF00F8E539 /* twiceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = twiceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AD20DBC2DDF0E7400F8E539 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		3AD20D862DDF0DBC00F8E539 = {
 			isa = PBXGroup;
 			children = (
+				3AD20DBC2DDF0E7400F8E539 /* README.md */,
 				3AD20D912DDF0DBC00F8E539 /* twice */,
 				3AD20DA22DDF0DBF00F8E539 /* twiceTests */,
 				3AD20DAC2DDF0DBF00F8E539 /* twiceUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AD20DBD2DDF0E7400F8E539 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
