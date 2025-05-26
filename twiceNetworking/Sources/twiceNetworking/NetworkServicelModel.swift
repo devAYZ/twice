@@ -43,6 +43,7 @@ public struct TwiceNetworkServicelModel<Q: Codable & Sendable, A: Decodable & Se
     ///   - responseType: Expected response type `A`.
     ///   - headers: Optional HTTP headers.
     ///   - queryParameters: Optional query parameters.
+    ///  > Tip: The requestObject, headers, queryParameters  are optional, they can be omitted where appropriate
     public init(
         baseUrl: String, endpoint: String, requestMethod: HTTPMethod,
         requestObject: Q? = nil, responseType: A.Type,

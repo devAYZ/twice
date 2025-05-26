@@ -69,7 +69,6 @@ class ListViewModel: ObservableObject {
             baseUrl: InfoPlistFetcher[.githubBaseUrl],
             endpoint: GithubEndpoints.users.rawValue,
             requestMethod: .get,
-            requestObject: nil,
             responseType: [GithubUsersResponse].self
         )
     }
