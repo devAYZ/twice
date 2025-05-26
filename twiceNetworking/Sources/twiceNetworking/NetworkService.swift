@@ -18,6 +18,31 @@ public final class TwiceNetworkService: TwiceNetworkServiceProtocol {
     /// - Parameters:
     ///   - requestModel: A model containing all request details, including URL, method, headers, parameters, and expected response type.
     ///   - completion: An optional completion handler called with the decoded response.
+    /// ```swift
+    /// Usage:
+    /// let networkService: TwiceNetworkServiceProtocol = TwiceNetworkService()
+    /// networkService.makeNetworkCall(with: getListRequestObject()) { response in
+    /// switch response.result {
+    ///  case .success(let data):
+    ///       print(data)
+    ///  case .failure(let error):
+    ///       print(error.localizedDescription)
+    ///   }
+    /// }
+    ///
+    /// Model:
+    ///  func getListRequestObject()
+    ///  -> TwiceNetworkServicelModel<SampleRequest, SampleResponse> {
+    ///     return TwiceNetworkServicelModel(
+    ///         baseUrl: "acb.com",
+    ///         endpoint: "/abc",
+    ///         requestMethod: .get,
+    ///        requestObject: SampleRequest(),
+    ///        responseType: SampleResponse.self
+    ///    )
+    /// }
+    /// ```
+    //
     public func makeNetworkCall<Q: Codable & Sendable, A: Decodable & Sendable>(
         with requestModel: TwiceNetworkServicelModel<Q, A>, completion: (@Sendable (AFDataResponse<A>) -> ())?
     ) {
