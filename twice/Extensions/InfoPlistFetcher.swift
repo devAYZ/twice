@@ -17,5 +17,5 @@ public enum InfoPlistFetcher {
 }
 
 enum InfoPlistFetcherKey: String {
-    case baseUrl = "BaseUrl"
+    case githubBaseUrl = "GithubBaseUrl"
 }
