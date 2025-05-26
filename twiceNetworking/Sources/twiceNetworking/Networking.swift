@@ -11,8 +11,7 @@ import Alamofire
 // MARK: AFNetworkClass
 public final class TwiceNetworkService: TwiceNetworkServiceProtocol {
     
-    @MainActor public static let shared: TwiceNetworkServiceProtocol = TwiceNetworkService()
-    private init() { }
+    public init() { }
     
     /// Implement network call using Alamofire
     /// - Parameters:
@@ -64,9 +63,8 @@ public final class TwiceNetworkService: TwiceNetworkServiceProtocol {
         request
             .validate()
             .responseDecodable(of: responseType) { response in
-                debugPrint(response)
+                //debugPrint(response)
                 print("\nCOMPLETES Network call...\n")
-                //completion?(response)
                 Task { @MainActor in
                     completion?(response)
                 }

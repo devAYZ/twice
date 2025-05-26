@@ -14,20 +14,56 @@ struct Item: Identifiable {
 }
 
 struct ListView: View {
-    let items = [
-        Item(title: "Item 1", description: "This is item 1"),
-        Item(title: "Item 2", description: "This is item 2")
-    ]
 
+    // MARK: Properties
+    @ObservedObject private var vmListView = ListViewModel.shared
+    
     var body: some View {
         NavigationView {
-            List(items) { item in
-                NavigationLink(destination: DetailView(item: item)) {
-                    Text(item.title)
+            VStack {
+                SearchView(text: $vmListView.searchText)
+                    .padding(.horizontal)
+                List(vmListView.filteredUserList, id: \.id) { user in
+                    NavigationLink(destination: DetailView(user: user)) {
+                        ListCellView(user: user)
+                    }
                 }
+                .navigationTitle("Github Users")
+                
             }
-            .navigationTitle("Github Users")
         }
+        .onAppear {
+            vmListView.attachView(view: self)
+            vmListView.getUsersList()
+        }
+        .onChange(of: vmListView.searchText) { _ in
+            handleSearchText()
+        }
+        .alert(vmListView.showAlert_message ?? "", isPresented: $vmListView.showAlert) {
+            // Do nothing
+        }
+    }
+}
+
+extension ListView {
+    private func handleSearchText() {
+        if vmListView.searchText.isEmpty {
+            return vmListView.filteredUserList = vmListView.userList
+        } else {
+            vmListView.filteredUserList = vmListView.userList.filter { $0.login.tryValue.lowercased().contains(vmListView.searchText.lowercased())
+            }
+        }
+    }
+}
+
+extension ListView: ListViewDelegate {
+    func handleLoader(show: Bool) {
+        //
+    }
+    
+    func handleError(message: String?) {
+        vmListView.showAlert = true
+        vmListView.showAlert_message = message
     }
 }
 

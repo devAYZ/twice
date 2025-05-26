@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct DetailView: View {
-    let item: Item
+    let user: GithubUsersResponse
 
     var body: some View {
-        CustomUIView(text: item.description)
+        CustomUIView(text: user.login.tryValue)
             .frame(maxWidth: .infinity, minHeight: 100)
     }
 }
 
 #Preview {
-    DetailView(item: .init(title: "Ayo", description: "Ayo 1"))
+    DetailView(user: .init(login: "123"))
 }
