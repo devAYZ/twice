@@ -28,7 +28,7 @@ struct ListView: View {
                             .font(.title2)
                     } else {
                         List(vmListView.filteredListItems, id: \.id) { user in
-                            NavigationLink(destination: DetailView(user: user)) {
+                            NavigationLink(destination: DetailsUIView(user: user)) {
                                 ListCellView(user: user)
                             }
                         }

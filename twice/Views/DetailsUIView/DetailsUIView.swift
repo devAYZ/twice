@@ -1,5 +1,5 @@
 //
-//  CustomUIView.swift
+//  DetailsUIView.swift
 //  twice
 //
 //  Created by Ayokunle Fatokimi on 26/05/2025.
@@ -8,11 +8,11 @@
 import UIKit
 import SwiftUI
 
-struct CustomUIView: UIViewRepresentable {
-    let text: String
+struct DetailsUIView: UIViewRepresentable {
+    let user: GithubUsersResponse
 
     func makeUIView(context: Context) -> UIView {
-        return UILabelComponent(text: text)
+        return UILabelComponent(user: user)
     }
 
     func updateUIView(_ uiView: UIView, context: Context) {
@@ -23,9 +23,9 @@ struct CustomUIView: UIViewRepresentable {
     private class UILabelComponent: UIView {
         private let label = UILabel()
 
-        init(text: String) {
+        init(user: GithubUsersResponse) {
             super.init(frame: .zero)
-            label.text = text
+            label.text = user.login
             label.numberOfLines = 0
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20, weight: .medium)
@@ -45,4 +45,8 @@ struct CustomUIView: UIViewRepresentable {
             fatalError("init(coder:) has not been implemented")
         }
     }
+}
+
+#Preview {
+    DetailsUIView(user: .init(login: "123"))
 }
