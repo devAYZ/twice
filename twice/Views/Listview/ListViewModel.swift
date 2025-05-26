@@ -19,7 +19,7 @@ class ListViewModel: ObservableObject {
     static let shared = ListViewModel()
     
     // MARK: Properties
-    @Published var showLoader = false    
+    @Published var showLoader = false
     @Published var showAlert = false
     @Published var showAlert_message: String?
     
@@ -27,42 +27,43 @@ class ListViewModel: ObservableObject {
     var networkService: TwiceNetworkServiceProtocol?
     
     
-    @Published var userList = [GithubUsersResponse]()
+    @Published var listItems = [GithubUsersResponse]()
     
-    @Published var filteredUserList = [GithubUsersResponse]()
+    @Published var filteredListItems = [GithubUsersResponse]()
     
     @Published var searchText: String = ""
     
     // MARK: Initialiser
     init(networkService: TwiceNetworkServiceProtocol = TwiceNetworkService()) {
         self.networkService = networkService
-        filteredUserList = userList
+        filteredListItems = listItems
     }
     
     func attachView(view: ListViewDelegate) {
         self.view = view
     }
     
-    func getUsersList() {
+    func getListItems() {
         view?.handleLoader(show: true)
-        networkService?.makeNetworkCall(with: githubUserRequestObject()) { response in
+        networkService?.makeNetworkCall(with: getListRequestObject()) { response in
             switch response.result {
-            case .success(let data):
-                guard !data.isEmpty else {
+            case .success(let fetchedList):
+                guard !fetchedList.isEmpty else {
                     self.view?.handleError(message: "Empty Data Retrieved")
                     return
                 }
-                let sortedData = data.sorted { $0.login.tryValue < $1.login.tryValue }
-                self.userList = sortedData
-                self.filteredUserList = sortedData
+                let sortedFetchedList = fetchedList.sorted {
+                    $0.login.tryValue.lowercased() < $1.login.tryValue.lowercased()
+                }
+                self.listItems = sortedFetchedList
+                self.filteredListItems = sortedFetchedList
             case .failure(let error):
-                print("devAYZ Nooo", error.localizedDescription)
                 self.view?.handleError(message: error.localizedDescription)
             }
         }
     }
     
-    private func githubUserRequestObject()
+    private func getListRequestObject()
     -> TwiceNetworkServicelModel<EmptyRequest, [GithubUsersResponse]> {
         return TwiceNetworkServicelModel(
             baseUrl: InfoPlistFetcher[.githubBaseUrl],

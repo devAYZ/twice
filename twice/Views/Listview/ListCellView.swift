@@ -30,7 +30,7 @@ struct ListCellView: View {
             
             VStack(alignment: .leading) {
                 Text(user.login.tryValue)
-                    .font(.title2)
+                    .font(.title3)
                     .fontWeight(.semibold)
                 Text("\(user.login.tryValue) - \(user.id ?? .zero)")
                     .font(.subheadline)

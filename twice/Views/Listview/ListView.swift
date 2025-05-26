@@ -23,7 +23,7 @@ struct ListView: View {
             VStack {
                 SearchView(text: $vmListView.searchText)
                     .padding(.horizontal)
-                List(vmListView.filteredUserList, id: \.id) { user in
+                List(vmListView.filteredListItems, id: \.id) { user in
                     NavigationLink(destination: DetailView(user: user)) {
                         ListCellView(user: user)
                     }
@@ -34,7 +34,7 @@ struct ListView: View {
         }
         .onAppear {
             vmListView.attachView(view: self)
-            vmListView.getUsersList()
+            vmListView.getListItems()
         }
         .onChange(of: vmListView.searchText) { _ in
             handleSearchText()
@@ -48,9 +48,9 @@ struct ListView: View {
 extension ListView {
     private func handleSearchText() {
         if vmListView.searchText.isEmpty {
-            return vmListView.filteredUserList = vmListView.userList
+            return vmListView.filteredListItems = vmListView.listItems
         } else {
-            vmListView.filteredUserList = vmListView.userList.filter { $0.login.tryValue.lowercased().contains(vmListView.searchText.lowercased())
+            vmListView.filteredListItems = vmListView.listItems.filter { $0.login.tryValue.lowercased().contains(vmListView.searchText.lowercased())
             }
         }
     }
