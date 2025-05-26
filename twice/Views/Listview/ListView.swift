@@ -20,19 +20,40 @@ struct ListView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                List(vmListView.filteredListItems, id: \.id) { user in
-                    NavigationLink(destination: DetailView(user: user)) {
-                        ListCellView(user: user)
+            ZStack {
+                VStack {
+                    
+                    if vmListView.filteredListItems.isEmpty {
+                        Text("No Data Found")
+                            .font(.title2)
+                    } else {
+                        List(vmListView.filteredListItems, id: \.id) { user in
+                            NavigationLink(destination: DetailView(user: user)) {
+                                ListCellView(user: user)
+                            }
+                        }
                     }
                 }
-                .navigationTitle("Main List")
+                
+                if vmListView.showLoader {
+                    LoadingView()
+                }
                 
             }
+            .navigationTitle("Main List")
         }
         .searchable(text: $vmListView.searchText)
         .onAppear {
             vmListView.attachView(view: self)
+            
+            guard let cachedList = CacheManager.shared
+                .retrieveCachedObject(object: [GithubUsersResponse].self, key: .listItems) else {
+                self.vmListView.getListItems()
+                return
+            }
+            vmListView.listItems = cachedList
+            
+            vmListView.copyList()
         }
         .onChange(of: vmListView.searchText) { _ in
             handleSearchText()
@@ -56,7 +77,7 @@ extension ListView {
 
 extension ListView: ListViewDelegate {
     func handleLoader(show: Bool) {
-        //
+        vmListView.showLoader = show
     }
     
     func handleError(message: String?) {

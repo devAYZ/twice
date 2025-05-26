@@ -37,12 +37,10 @@ class ListViewModel: ObservableObject {
     init(networkService: TwiceNetworkServiceProtocol = TwiceNetworkService()) {
         self.networkService = networkService
         
-        guard let cachedList = CacheManager.shared
-            .retrieveCachedObject(object: [GithubUsersResponse].self, key: .listItems) else {
-            getListItems()
-            return
-        }
-        listItems = cachedList
+        copyList()
+    }
+    
+    func copyList() {
         filteredListItems = listItems
     }
     
@@ -53,6 +51,8 @@ class ListViewModel: ObservableObject {
     func getListItems() {
         view?.handleLoader(show: true)
         networkService?.makeNetworkCall(with: getListRequestObject()) { response in
+            self.view?.handleLoader(show: false)
+            
             switch response.result {
             case .success(let fetchedList):
                 guard !fetchedList.isEmpty else {
@@ -76,7 +76,7 @@ class ListViewModel: ObservableObject {
     -> TwiceNetworkServicelModel<EmptyRequest, [GithubUsersResponse]> {
         return TwiceNetworkServicelModel(
             baseUrl: InfoPlistFetcher[.githubBaseUrl],
-            endpoint: GithubEndpoints.test.rawValue,
+            endpoint: GithubEndpoints.users.rawValue,
             requestMethod: .get,
             responseType: [GithubUsersResponse].self
         )

@@ -18,7 +18,7 @@ struct ListCellView: View {
                     .frame(width: 40, height: 40)
                     .cornerRadius(20)
                     .overlay {
-                        Circle().stroke(Color.blue, lineWidth: 0.5)
+                        Circle().stroke(Color.green, lineWidth: 0.5)
                     }
             } placeholder: {
                 Image(systemName: "person")
