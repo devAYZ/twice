@@ -4,5 +4,7 @@
 <dict>
 	<key>GithubBaseUrl</key>
 	<string>api.github.com</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen.storyboard</string>
 </dict>
 </plist>

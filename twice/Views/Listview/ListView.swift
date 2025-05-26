@@ -21,17 +21,16 @@ struct ListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                SearchView(text: $vmListView.searchText)
-                    .padding(.horizontal)
                 List(vmListView.filteredListItems, id: \.id) { user in
                     NavigationLink(destination: DetailView(user: user)) {
                         ListCellView(user: user)
                     }
                 }
-                .navigationTitle("Github Users")
+                .navigationTitle("Main List")
                 
             }
         }
+        .searchable(text: $vmListView.searchText)
         .onAppear {
             vmListView.attachView(view: self)
             vmListView.getListItems()
