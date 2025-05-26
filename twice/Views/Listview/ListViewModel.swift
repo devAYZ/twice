@@ -36,6 +36,13 @@ class ListViewModel: ObservableObject {
     // MARK: Initialiser
     init(networkService: TwiceNetworkServiceProtocol = TwiceNetworkService()) {
         self.networkService = networkService
+        
+        guard let cachedList = CacheManager.shared
+            .retrieveCachedObject(object: [GithubUsersResponse].self, key: .listItems) else {
+            getListItems()
+            return
+        }
+        listItems = cachedList
         filteredListItems = listItems
     }
     
@@ -57,6 +64,8 @@ class ListViewModel: ObservableObject {
                 }
                 self.listItems = sortedFetchedList
                 self.filteredListItems = sortedFetchedList
+                CacheManager.shared
+                    .cacheObject(object: sortedFetchedList, key: .listItems)
             case .failure(let error):
                 self.view?.handleError(message: error.localizedDescription)
             }
@@ -67,7 +76,7 @@ class ListViewModel: ObservableObject {
     -> TwiceNetworkServicelModel<EmptyRequest, [GithubUsersResponse]> {
         return TwiceNetworkServicelModel(
             baseUrl: InfoPlistFetcher[.githubBaseUrl],
-            endpoint: GithubEndpoints.users.rawValue,
+            endpoint: GithubEndpoints.test.rawValue,
             requestMethod: .get,
             responseType: [GithubUsersResponse].self
         )

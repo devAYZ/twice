@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GithubUsersResponse: Decodable {
+struct GithubUsersResponse: Codable {
     var login: String?
     var id: Int?
     var avatarUrl, htmlUrl, userViewType, nodeId, starredUrl, eventsUrl: String?
