@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  NetworkServicelModel.swift
 //  twiceNetworking
 //
 //  Created by Ayokunle Fatokimi on 26/05/2025.
@@ -8,32 +8,41 @@
 import Foundation
 import Alamofire
 
+/// Protocol defining the Twice Network Service using Alamofire for network calls.
 public protocol TwiceNetworkServiceProtocol {
-    /// Blueprint network call using Alamofire
+    /// Makes a network call using Alamofire.
     /// - Parameters:
-    ///   - urlString: urlString
-    ///   - completion: completion handler
+    ///   - requestModel: The network request model containing request details.
+    ///   - completion: Optional completion handler returning an Alamofire response.
     func makeNetworkCall<Q: Codable & Sendable, A: Decodable & Sendable>(
         with requestModel: TwiceNetworkServicelModel<Q, A>,
         completion: (@Sendable (AFDataResponse<A>) -> ())?
     )
 }
 
+/// Represents an empty request body.
 public struct EmptyRequest: Codable & Sendable {
     public init() {}
 }
 
+/// Typealias for HTTP headers used in network requests.
 public typealias NetworkHeaders = HTTPHeaders
+
+/// Typealias for query parameters used in network requests.
 public typealias QueryParameters = Parameters
 
+/// Model representing the details needed to perform a network call.
 public struct TwiceNetworkServicelModel<Q: Codable & Sendable, A: Decodable & Sendable> {
     
-    /// Initialisation
+    /// Initializes a new network service model.
     /// - Parameters:
-    ///   - url: The endpoint to be call
-    ///   - requestMethod: HTTP request method
-    ///   - requestObject: (Q: Question) Request Object
-    ///   - header:
+    ///   - baseUrl: Base URL of the request.
+    ///   - endpoint: Specific API endpoint.
+    ///   - requestMethod: HTTP method (GET, POST, etc.).
+    ///   - requestObject: Request payload object of type `Q`.
+    ///   - responseType: Expected response type `A`.
+    ///   - headers: Optional HTTP headers.
+    ///   - queryParameters: Optional query parameters.
     public init(
         baseUrl: String, endpoint: String, requestMethod: HTTPMethod,
         requestObject: Q? = nil, responseType: A.Type,
@@ -48,11 +57,24 @@ public struct TwiceNetworkServicelModel<Q: Codable & Sendable, A: Decodable & Se
         self.queryParameters = queryParameters
     }
     
+    /// The base URL for the request.
     public var baseUrl: String
+    
+    /// The specific API endpoint.
     public var endpoint: String
+    
+    /// The HTTP method to use.
     public var requestMethod: HTTPMethod
+    
+    /// The request payload object.
     public var requestObject: Q?
+    
+    /// The expected response type.
     public var responseType: A.Type
+    
+    /// Optional HTTP headers.
     public var headers: NetworkHeaders?
+    
+    /// Optional query parameters.
     public var queryParameters: QueryParameters?
 }

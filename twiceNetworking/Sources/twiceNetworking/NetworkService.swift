@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  NetworkService.swift
 //  twiceNetworking
 //
 //  Created by Ayokunle Fatokimi on 26/05/2025.
@@ -8,16 +8,16 @@
 import Foundation
 import Alamofire
 
-// MARK: AFNetworkClass
+/// A network service class that performs API calls using Alamofire.
 public final class TwiceNetworkService: TwiceNetworkServiceProtocol {
     
+    /// Creates a new instance of `TwiceNetworkService`.
     public init() { }
     
-    /// Implement network call using Alamofire
+    /// Makes a network call using Alamofire with the provided request model.
     /// - Parameters:
-    ///   - requestModel: requestModel
-    ///   - completion: completion handler
-    // MARK: API call
+    ///   - requestModel: A model containing all request details, including URL, method, headers, parameters, and expected response type.
+    ///   - completion: An optional completion handler called with the decoded response.
     public func makeNetworkCall<Q: Codable & Sendable, A: Decodable & Sendable>(
         with requestModel: TwiceNetworkServicelModel<Q, A>, completion: (@Sendable (AFDataResponse<A>) -> ())?
     ) {
@@ -32,12 +32,13 @@ public final class TwiceNetworkService: TwiceNetworkServiceProtocol {
         }
         let fullURL = base.appendingPathComponent(requestModel.endpoint).absoluteString
         
+        // Construct default request headers
         var requestHeaders: HTTPHeaders = [
             "content-type": "application/json",
             "x-channel": "iOS",
-            "X-App-Version": "1.0.0",
             "x-lang": "EN"
         ]
+        // Update headers with any additional headers from the request model
         requestModel.headers?.forEach {
             requestHeaders.update($0)
         }
@@ -47,6 +48,7 @@ public final class TwiceNetworkService: TwiceNetworkServiceProtocol {
         
         var request: DataRequest
         
+        // If query parameters exist, set content-type to nil and encode parameters as URL query parameters
         if let queryParams = requestModel.queryParameters {
             requestHeaders["content-type"] = nil
             request = AF.request(fullURL, method: requestMethod,
@@ -54,12 +56,14 @@ public final class TwiceNetworkService: TwiceNetworkServiceProtocol {
                                  encoding: URLEncoding.default,
                                  headers: requestHeaders)
         } else {
+            // Otherwise, encode the request object as JSON in the request body
             request = AF.request(fullURL, method: requestMethod,
                                  parameters: requestObject,
                                  encoder: JSONParameterEncoder.default,
                                  headers: requestHeaders)
         }
         
+        // Validate the response and decode it into the expected response type
         request
             .validate()
             .responseDecodable(of: responseType) { response in
