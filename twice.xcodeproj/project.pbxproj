@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3AD20DBD2DDF0E7400F8E539 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3AD20DBC2DDF0E7400F8E539 /* README.md */; };
+		3AD20EEE2DE43F0000F8E539 /* twiceNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 3AD20EED2DE43F0000F8E539 /* twiceNetworking */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +33,7 @@
 		3AD20D9F2DDF0DBF00F8E539 /* twiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = twiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD20DA92DDF0DBF00F8E539 /* twiceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = twiceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD20DBC2DDF0E7400F8E539 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3AD20DBE2DE43E9800F8E539 /* twiceNetworking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = twiceNetworking; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -57,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AD20EEE2DE43F0000F8E539 /* twiceNetworking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,10 +83,12 @@
 		3AD20D862DDF0DBC00F8E539 = {
 			isa = PBXGroup;
 			children = (
+				3AD20DBE2DE43E9800F8E539 /* twiceNetworking */,
 				3AD20DBC2DDF0E7400F8E539 /* README.md */,
 				3AD20D912DDF0DBC00F8E539 /* twice */,
 				3AD20DA22DDF0DBF00F8E539 /* twiceTests */,
 				3AD20DAC2DDF0DBF00F8E539 /* twiceUITests */,
+				3AD20EEC2DE43F0000F8E539 /* Frameworks */,
 				3AD20D902DDF0DBC00F8E539 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -96,6 +101,13 @@
 				3AD20DA92DDF0DBF00F8E539 /* twiceUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3AD20EEC2DE43F0000F8E539 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,6 +130,7 @@
 			);
 			name = twice;
 			packageProductDependencies = (
+				3AD20EED2DE43F0000F8E539 /* twiceNetworking */,
 			);
 			productName = twice;
 			productReference = 3AD20D8F2DDF0DBC00F8E539 /* twice.app */;
@@ -569,6 +582,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3AD20EED2DE43F0000F8E539 /* twiceNetworking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = twiceNetworking;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3AD20D872DDF0DBC00F8E539 /* Project object */;
 }

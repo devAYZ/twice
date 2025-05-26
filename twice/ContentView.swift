@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import twiceNetworking
 
 struct ContentView: View {
     var body: some View {
@@ -16,6 +17,10 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
+    }
+    
+    func test() {
+        let emp = EmptyRequest()
     }
 }
 
