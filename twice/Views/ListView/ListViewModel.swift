@@ -60,7 +60,7 @@ class ListViewModel: ObservableObject {
                     return
                 }
                 let sortedFetchedList = fetchedList.sorted {
-                    $0.login.tryValue.lowercased() < $1.login.tryValue.lowercased()
+                    $0.login.unwrap.lowercased() < $1.login.unwrap.lowercased()
                 }
                 self.listItems = sortedFetchedList
                 self.filteredListItems = sortedFetchedList

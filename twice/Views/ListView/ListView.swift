@@ -69,7 +69,7 @@ extension ListView {
         if vmListView.searchText.isEmpty {
             return vmListView.filteredListItems = vmListView.listItems
         } else {
-            vmListView.filteredListItems = vmListView.listItems.filter { $0.login.tryValue.lowercased().contains(vmListView.searchText.lowercased())
+            vmListView.filteredListItems = vmListView.listItems.filter { $0.login.unwrap.lowercased().contains(vmListView.searchText.lowercased())
             }
         }
     }

@@ -15,6 +15,7 @@ struct ListCellView: View {
             
             AsyncImage(url: .init(string: user.avatarUrl ?? "")) { image in
                 image
+                    .aspectRatio(contentMode: .fit)
                     .frame(width: 40, height: 40)
                     .cornerRadius(20)
                     .overlay {
@@ -29,10 +30,10 @@ struct ListCellView: View {
             .shadow(radius: 7)
             
             VStack(alignment: .leading) {
-                Text(user.login.tryValue)
+                Text(user.login.unwrap)
                     .font(.title3)
                     .fontWeight(.semibold)
-                Text("\(user.login.tryValue) - \(user.id ?? .zero)")
+                Text("\(user.login.unwrap) - \(user.id ?? .zero)")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }

@@ -9,7 +9,7 @@ import Foundation
 
 extension String? {
     
-    var tryValue: String {
+    var unwrap: String {
         self ?? ""
     }
 }

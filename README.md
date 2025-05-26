@@ -36,6 +36,13 @@ Twice can serve as a generic two-screen-display app, for any API. (By swapping o
 
 ## Dependency Manager
 - Swift Package Manager (SPM): Used for managing external dependencies.
+
+
+## Dependency
+1. **[Kingfisher](https://github.com/onevcat/Kingfisher)**  
+   - Handles image downloading and caching.
+   - Optimizes loading of images in the UI Kit Component.
+   
    
 ## Packages(Local)
 - twiceNetworking: Encapsulate the networking logic.
