@@ -33,7 +33,7 @@ struct ListView: View {
         .searchable(text: $vmListView.searchText)
         .onAppear {
             vmListView.attachView(view: self)
-            vmListView.getListItems()
+            //vmListView.getListItems()
         }
         .onChange(of: vmListView.searchText) { _ in
             handleSearchText()
