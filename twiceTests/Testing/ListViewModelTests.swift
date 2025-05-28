@@ -23,13 +23,13 @@ struct ListViewModelTests {
     @Test func successFetchList() {
         let (sut, mockViewDelegate) = Self.makeSUT(apiFlow: .successFetchList)
         sut.getListItems()
+        
         #expect(mockViewDelegate.receivedListData?.count == 2)
         #expect(mockViewDelegate.receivedListData?.first?.login == "ayo")
     }
     
     @Test func sortedListByLogin() {
         let (sut, mockViewDelegate) = Self.makeSUT(apiFlow: .successFetchList)
-        
         sut.getListItems()
 
         let list = mockViewDelegate.receivedListData?.compactMap { $0.login }
@@ -39,6 +39,7 @@ struct ListViewModelTests {
     @Test func failureFetchList() {
         let (sut, mockViewDelegate) = Self.makeSUT(apiFlow: .failFetchList)
         sut.getListItems()
+        
         #expect(mockViewDelegate.receivedError != nil)
         #expect(mockViewDelegate.receivedError?.contains("Custom Error fetching list") ?? false)
     }
@@ -47,6 +48,7 @@ struct ListViewModelTests {
     @Test func loaderStateDuringSuccessFetch() {
         let (sut, mockViewDelegate) = Self.makeSUT(apiFlow: .successFetchList)
         sut.getListItems()
+        
         #expect(mockViewDelegate.loaderShownStates.count == 2)
         #expect(mockViewDelegate.loaderShownStates.first == true)  // Loader shown
         #expect(mockViewDelegate.loaderShownStates.last == false)  // Loader dismissed
@@ -55,6 +57,7 @@ struct ListViewModelTests {
     @Test func loaderStateDuringFailureFetch() {
         let (sut, mockViewDelegate) = Self.makeSUT(apiFlow: .failFetchList)
         sut.getListItems()
+        
         #expect(mockViewDelegate.loaderShownStates.count == 2)
         #expect(mockViewDelegate.loaderShownStates.first == true)  // Loader shown
         #expect(mockViewDelegate.loaderShownStates.last == false)  // Loader dismissed

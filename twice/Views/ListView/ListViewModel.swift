@@ -14,7 +14,7 @@ protocol ListViewDelegate {
     func handleDidFetchData(data: [GithubUsersResponse])
 }
 
-class ListViewModel: ObservableObject {
+final class ListViewModel: ObservableObject {
     
     // MARK: shared
     static let shared = ListViewModel()
@@ -24,14 +24,11 @@ class ListViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var showAlert_message: String?
     
-    var view: ListViewDelegate?
-    var networkService: TwiceNetworkServiceProtocol?
-    
+    private var view: ListViewDelegate?
+    private var networkService: TwiceNetworkServiceProtocol?
     
     @Published var listItems = [GithubUsersResponse]()
-    
     @Published var filteredListItems = [GithubUsersResponse]()
-    
     @Published var searchText: String = ""
     
     // MARK: Initialiser

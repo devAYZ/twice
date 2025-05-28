@@ -40,7 +40,6 @@ struct ListView: View {
                 if vmListView.showLoader {
                     LoadingView()
                 }
-                
             }
             .navigationTitle("Main List")
         }
@@ -72,6 +71,9 @@ extension ListView {
             NavigationLink(destination: DetailsUIView(user: user)) {
                 ListCellView(user: user)
             }
+        }
+        .refreshable {
+            vmListView.getListItems()
         }
     }
     

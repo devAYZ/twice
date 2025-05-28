@@ -26,12 +26,12 @@ Twice can serve as a generic two-screen-display app, for any API. (By swapping o
 
 ## Architecture
 - MVVM (Model-View-ViewModel)  
-   - Ensures separation of concerns for better maintainability and testability.
-   - Views are built using **SwiftUI** and a custom view build in UIKit and bidge using the **UIViewRepresentable**
+   - This architecture ensures separation of concerns for better maintainability and testability.
+   - Views are built using **SwiftUI** and a custom view built in UIKit and bridged using the **UIViewRepresentable** protocol
 
    
 ## Assets
-- Systmen Assets: Images, Fonts, Colors
+- System Assets: Images, Fonts, Colors
 
 
 ## Dependency Manager
@@ -52,6 +52,10 @@ Twice can serve as a generic two-screen-display app, for any API. (By swapping o
 1. **[Alamofire](https://github.com/Alamofire/Alamofire)**  
    - Used for handling network requests in a simple and elegant manner.
    - It simplifies making API calls to fetch real-time currency exchange rates.
+   
+
+## Local Data Storage
+- User Default
 
 
 ## Links to Resources
