@@ -10,12 +10,12 @@ import Foundation
 
 class MockListViewDelegate: ListViewDelegate {
     
-    var loaderShown = false
+    var loaderShownStates: [Bool] = []
     var receivedError: String?
     var receivedListData: [GithubUsersResponse]?
     
     func handleLoader(show: Bool) {
-        loaderShown = show
+        loaderShownStates.append(show)
     }
     
     func handleError(message: String?) {

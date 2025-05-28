@@ -36,8 +36,16 @@ struct MockNetworkService: TwiceNetworkServiceProtocol {
             result: .success(
                 [
                     GithubUsersResponse(
-                        login: "ayo",
+                        login: "becky",
                         id: 02,
+                        avatarUrl: "api.https://avatarUrl.com/becky",
+                        htmlUrl: "https://htmlUrl.com/becky",
+                        type: "user",
+                        url: "api.https://url.com/becky"
+                    ),
+                    GithubUsersResponse(
+                        login: "ayo",
+                        id: 01,
                         avatarUrl: "api.https://avatarUrl.com/ayo",
                         htmlUrl: "https://htmlUrl.com/ayo",
                         type: "admin",

@@ -11,25 +11,52 @@ import Testing
 @Suite("Fetch list operations")
 struct ListViewModelTests {
     
-    var sut: ListViewModel!
-    var mockViewDelegate: MockListViewDelegate!
-    var mockNetworkService: MockNetworkService!
-    
-    private mutating func setupSUTAPIFlow(apiFlow: MockNetworkServiceFlow?) {
-        mockNetworkService = MockNetworkService(apiFlow: apiFlow)
-        sut = ListViewModel(networkService: mockNetworkService)
-        mockViewDelegate = MockListViewDelegate()
-        sut.attachView(view: mockViewDelegate)
+    // Static helper to create SUT for each test
+    private static func makeSUT(apiFlow: MockNetworkServiceFlow?) -> (ListViewModel, MockListViewDelegate) {
+        let networkService = MockNetworkService(apiFlow: apiFlow)
+        let viewModel = ListViewModel(networkService: networkService)
+        let viewDelegate = MockListViewDelegate()
+        viewModel.attachView(view: viewDelegate)
+        return (viewModel, viewDelegate)
     }
     
-    @Test func myFirstTest() {
-      #expect(1 == 1)
-    }
-    
-    @Test mutating func successFetchList() {
-        setupSUTAPIFlow(apiFlow: .successFetchList)
+    @Test func successFetchList() {
+        let (sut, mockViewDelegate) = Self.makeSUT(apiFlow: .successFetchList)
         sut.getListItems()
-        #expect(mockViewDelegate.receivedListData?.count == 1)
+        #expect(mockViewDelegate.receivedListData?.count == 2)
+        #expect(mockViewDelegate.receivedListData?.first?.login == "ayo")
+    }
+    
+    @Test func sortedListByLogin() {
+        let (sut, mockViewDelegate) = Self.makeSUT(apiFlow: .successFetchList)
+        
+        sut.getListItems()
+
+        let list = mockViewDelegate.receivedListData?.compactMap { $0.login }
+        #expect((list == list?.sorted()))
     }
 
+    @Test func failureFetchList() {
+        let (sut, mockViewDelegate) = Self.makeSUT(apiFlow: .failFetchList)
+        sut.getListItems()
+        #expect(mockViewDelegate.receivedError != nil)
+        #expect(mockViewDelegate.receivedError?.contains("Custom Error fetching list") ?? false)
+    }
+
+    // Testing Loader
+    @Test func loaderStateDuringSuccessFetch() {
+        let (sut, mockViewDelegate) = Self.makeSUT(apiFlow: .successFetchList)
+        sut.getListItems()
+        #expect(mockViewDelegate.loaderShownStates.count == 2)
+        #expect(mockViewDelegate.loaderShownStates.first == true)  // Loader shown
+        #expect(mockViewDelegate.loaderShownStates.last == false)  // Loader dismissed
+    }
+
+    @Test func loaderStateDuringFailureFetch() {
+        let (sut, mockViewDelegate) = Self.makeSUT(apiFlow: .failFetchList)
+        sut.getListItems()
+        #expect(mockViewDelegate.loaderShownStates.count == 2)
+        #expect(mockViewDelegate.loaderShownStates.first == true)  // Loader shown
+        #expect(mockViewDelegate.loaderShownStates.last == false)  // Loader dismissed
+    }
 }
