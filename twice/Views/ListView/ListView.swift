@@ -52,7 +52,6 @@ struct ListView: View {
                 return
             }
             vmListView.listItems = cachedList
-            
             vmListView.copyList()
         }
         .onChange(of: vmListView.searchText) { _ in
@@ -76,6 +75,13 @@ extension ListView {
 }
 
 extension ListView: ListViewDelegate {
+    
+    func handleDidFetchData(data: [GithubUsersResponse]) {
+        vmListView.listItems = data
+        vmListView.filteredListItems = data
+        CacheManager.shared.cacheObject(object: data, key: .listItems)
+    }
+    
     func handleLoader(show: Bool) {
         vmListView.showLoader = show
     }

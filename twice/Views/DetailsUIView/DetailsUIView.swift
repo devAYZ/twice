@@ -44,7 +44,6 @@ struct DetailsUIView: UIViewRepresentable {
         private let contentView = UIView()
         private let profileImageView = UIImageView()
         private let nameLabel = UILabel()
-        private var personalInfoData = [String]()
         
         private func setupScrollView() {
             scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,8 +57,8 @@ struct DetailsUIView: UIViewRepresentable {
                 scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
                 scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
                 contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+                contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 10),
+                contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 10),
                 contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
                 contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
             ])
@@ -69,7 +68,7 @@ struct DetailsUIView: UIViewRepresentable {
             profileImageView.translatesAutoresizingMaskIntoConstraints = false
             profileImageView.kf.setImage(
                 with: URL(string: imageURL),
-                placeholder: UIImage(systemName: "person")
+                placeholder: UIImage(systemName: "person.fill")
             )
             profileImageView.layer.cornerRadius = 50
             profileImageView.layer.borderWidth = 2
@@ -113,7 +112,7 @@ struct DetailsUIView: UIViewRepresentable {
             
             let titleLabel = UILabel()
             titleLabel.text = "Details Information"
-            titleLabel.font = .systemFont(ofSize: 17, weight: .medium)
+            titleLabel.font = .systemFont(ofSize: 15, weight: .semibold)
             
             headerStack.addArrangedSubview(titleLabel)
             
@@ -127,16 +126,29 @@ struct DetailsUIView: UIViewRepresentable {
                 let row = UIStackView()
                 row.axis = .horizontal
                 row.spacing = 10
-                row.distribution = .equalSpacing
+                row.distribution = .fillEqually
                 
                 let titleLabel = UILabel()
                 titleLabel.text = info.title
                 titleLabel.font = .systemFont(ofSize: 15, weight: .medium)
                 
                 let valueLabel = UILabel()
-                valueLabel.text = info.value
                 valueLabel.font = .systemFont(ofSize: 12)
-                valueLabel.numberOfLines = 1
+                valueLabel.numberOfLines = .zero
+                // If value is a valid URL, make it a tappable hyperlink
+                if let url = URL(string: info.value.unwrap), UIApplication.shared.canOpenURL(url) {
+                    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openLink(_:)))
+                    valueLabel.isUserInteractionEnabled = true
+                    valueLabel.textColor = .systemBlue
+                    valueLabel.attributedText = NSAttributedString(
+                        string: info.value.unwrap,
+                        attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue]
+                    )
+                    valueLabel.addGestureRecognizer(tapGesture)
+                    valueLabel.accessibilityHint = info.value
+                } else {
+                    valueLabel.text = info.value
+                }
                 
                 row.addArrangedSubview(titleLabel)
                 row.addArrangedSubview(valueLabel)
@@ -153,6 +165,14 @@ struct DetailsUIView: UIViewRepresentable {
                     containerStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
                     containerStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
                 ])
+            }
+        }
+        
+        // Handler hyperlink tap action
+        @objc private func openLink(_ sender: UITapGestureRecognizer) {
+            if let label = sender.view as? UILabel, let link = label.accessibilityHint,
+               let url = URL(string: link) {
+                UIApplication.shared.open(url)
             }
         }
     }

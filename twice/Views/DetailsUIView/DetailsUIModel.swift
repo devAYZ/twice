@@ -18,7 +18,7 @@ struct DetailsInfo {
             DetailsInfo(title: "Type:", value: user.type),
             DetailsInfo(title: "View type:", value:user.userViewType),
             DetailsInfo(title: "Profile URL:", value: user.avatarUrl),
-            DetailsInfo(title: "User URL:", value: user.url)
+            DetailsInfo(title: "User URL:", value: user.htmlUrl)
         ]
     }
 }

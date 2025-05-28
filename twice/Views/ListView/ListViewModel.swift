@@ -11,6 +11,7 @@ import twiceNetworking
 protocol ListViewDelegate {
     func handleLoader(show: Bool)
     func handleError(message: String?)
+    func handleDidFetchData(data: [GithubUsersResponse])
 }
 
 class ListViewModel: ObservableObject {
@@ -62,10 +63,7 @@ class ListViewModel: ObservableObject {
                 let sortedFetchedList = fetchedList.sorted {
                     $0.login.unwrap.lowercased() < $1.login.unwrap.lowercased()
                 }
-                self.listItems = sortedFetchedList
-                self.filteredListItems = sortedFetchedList
-                CacheManager.shared
-                    .cacheObject(object: sortedFetchedList, key: .listItems)
+                self.view?.handleDidFetchData(data: sortedFetchedList)
             case .failure(let error):
                 self.view?.handleError(message: error.localizedDescription)
             }

@@ -15,25 +15,25 @@ struct ListCellView: View {
             
             AsyncImage(url: .init(string: user.avatarUrl ?? "")) { image in
                 image
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 40, height: 40)
-                    .cornerRadius(20)
-                    .overlay {
-                        Circle().stroke(Color.green, lineWidth: 0.5)
-                    }
-            } placeholder: {
-                Image(systemName: "person")
                     .resizable()
-                    .frame(width: 30, height: 30)
+            } placeholder: {
+                Image(systemName: "person.fill")
+                    .resizable()
                     .foregroundColor(.blue)
+            }
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 45, height: 45)
+            .cornerRadius(22.5)
+            .overlay {
+                Circle().stroke(Color.green, lineWidth: 0.5)
             }
             .shadow(radius: 7)
             
             VStack(alignment: .leading) {
                 Text(user.login.unwrap)
-                    .font(.title3)
+                    .font(.headline)
                     .fontWeight(.semibold)
-                Text("\(user.login.unwrap) - \(user.id ?? .zero)")
+                Text("\(user.type.unwrap) - \(user.id ?? .zero)")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
