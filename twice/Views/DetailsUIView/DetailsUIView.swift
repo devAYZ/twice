@@ -119,7 +119,6 @@ struct DetailsUIView: UIViewRepresentable {
             let detailsStack = UIStackView()
             detailsStack.axis = .vertical
             detailsStack.spacing = 30
-            detailsStack.backgroundColor = .white
             detailsStack.translatesAutoresizingMaskIntoConstraints = false
             
             for info in DetailsInfo.details(user) {

@@ -27,10 +27,12 @@ struct ListView: View {
                         Text("No Data Found")
                             .font(.title2)
                     } else {
-                        List(vmListView.filteredListItems, id: \.id) { user in
-                            NavigationLink(destination: DetailsUIView(user: user)) {
-                                ListCellView(user: user)
-                            }
+                        
+                        if #available(iOS 16.0, *) {
+                            listView
+                                .scrollDismissesKeyboard(.immediately)
+                        } else {
+                            listView
                         }
                     }
                 }
@@ -64,6 +66,15 @@ struct ListView: View {
 }
 
 extension ListView {
+    
+    var listView: some View {
+        List(vmListView.filteredListItems, id: \.id) { user in
+            NavigationLink(destination: DetailsUIView(user: user)) {
+                ListCellView(user: user)
+            }
+        }
+    }
+    
     private func handleSearchText() {
         if vmListView.searchText.isEmpty {
             return vmListView.filteredListItems = vmListView.listItems
