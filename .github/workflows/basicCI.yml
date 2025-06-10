@@ -1,0 +1,24 @@
+# This workflow will clean and builds the application on Github actions 
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
+
+name: Basic CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  clean-and-build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Select Xcode
+      run: sudo xcode-select -switch /Applications/Xcode_16.1.app
+
+    - name: Clean and Build
+      run: xcodebuild clean build -workspace twice/twice.xcodeproj -scheme "twice" -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
