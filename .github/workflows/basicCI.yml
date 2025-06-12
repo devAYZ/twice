@@ -17,9 +17,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.12.1
+      with:
+        access_token: ${{ github.token }}
+
     - name: Select Xcode
       run: sudo xcode-select -switch /Applications/Xcode_16.1.app
 
     - name: Clean and Build
       run: xcodebuild clean build -project twice.xcodeproj -scheme "twice" -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15,OS=17.5" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
- 
+  
