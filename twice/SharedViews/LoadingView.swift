@@ -24,7 +24,7 @@ struct LoadingView: View {
             .background {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.white.opacity(0.8))
-                .frame(width: 180, height: 180)
+                    .frame(width: 180, height: 180)
             }
             .offset(y: -80)
         }

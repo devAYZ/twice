@@ -40,11 +40,13 @@ struct DetailsUIView: UIViewRepresentable {
             fatalError("init(coder:) has not been implemented")
         }
         
+        // Views
         private let scrollView = UIScrollView()
         private let contentView = UIView()
         private let profileImageView = UIImageView()
         private let nameLabel = UILabel()
         
+        // Method Setups
         private func setupScrollView() {
             scrollView.translatesAutoresizingMaskIntoConstraints = false
             contentView.translatesAutoresizingMaskIntoConstraints = false

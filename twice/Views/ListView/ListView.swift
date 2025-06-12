@@ -35,9 +35,9 @@ struct ListView: View {
                     LoadingView()
                 }
             }
+            .searchable(text: $vmListView.searchText)
             .navigationTitle("Main List")
         }
-        .searchable(text: $vmListView.searchText)
         .onAppear {
             vmListView.attachView(view: self)
             
