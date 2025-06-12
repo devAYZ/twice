@@ -1,3 +1,5 @@
+[![Basic CI](https://github.com/devAYZ/twice/actions/workflows/basicCI.yml/badge.svg)](https://github.com/devAYZ/twice/actions/workflows/basicCI.yml)
+
 # Twice App
 A two-screen Application, with a list-view and it corresponding details-view
 Twice can serve as a generic two-screen-display app, for any API. (By swapping out the currently-used API URL with desired URL)
@@ -60,3 +62,6 @@ Twice can serve as a generic two-screen-display app, for any API. (By swapping o
 
 ## Links to Resources
 - Demo Images/Video: [On Google Drive](https://drive.google.com/drive/folders/1BRyiT5xGTQ-3-d67dh6ytl1ydVXcwV31?usp=sharing)
+
+## Github actions badge
+[![Basic CI](https://github.com/devAYZ/twice/actions/workflows/basicCI.yml/badge.svg)](https://github.com/devAYZ/twice/actions/workflows/basicCI.yml)

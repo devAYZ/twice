@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-struct Item: Identifiable {
-    let id = UUID()
-    let title: String
-    let description: String
-}
-
 struct ListView: View {
 
     // MARK: Properties
