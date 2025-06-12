@@ -10,7 +10,7 @@ import SwiftUI
 struct ListView: View {
 
     // MARK: Properties
-    @ObservedObject private var vmListView = ListViewModel.shared
+    @ObservedObject private var vmListView = ListViewModel()
     
     var body: some View {
         NavigationView {
@@ -40,14 +40,7 @@ struct ListView: View {
         }
         .onAppear {
             vmListView.attachView(view: self)
-            
-            guard let cachedList = CacheManager.shared
-                .retrieveCachedObject(object: [GithubUsersResponse].self, key: .listItems) else {
-                self.vmListView.getListItems()
-                return
-            }
-            vmListView.listItems = cachedList
-            vmListView.copyList()
+            vmListView.getListItems()
         }
         .onChange(of: vmListView.searchText) { _ in
             handleSearchText()
@@ -84,8 +77,7 @@ extension ListView {
 extension ListView: ListViewDelegate {
     
     func handleDidFetchData(data: [GithubUsersResponse]) {
-        vmListView.listItems = data
-        vmListView.filteredListItems = data
+        (vmListView.listItems, vmListView.filteredListItems) = (data, data)
         CacheManager.shared.cacheObject(object: data, key: .listItems)
     }
     
