@@ -7,7 +7,6 @@
 
 import UIKit
 import SwiftUI
-import Kingfisher
 
 struct DetailsUIView: UIViewRepresentable {
     let user: GithubUsersResponse
@@ -68,10 +67,6 @@ struct DetailsUIView: UIViewRepresentable {
         
         private func setupProfileImage(imageURL: String) {
             profileImageView.translatesAutoresizingMaskIntoConstraints = false
-            profileImageView.kf.setImage(
-                with: URL(string: imageURL),
-                placeholder: UIImage(systemName: "person.fill")
-            )
             profileImageView.layer.cornerRadius = 50
             profileImageView.layer.borderWidth = 2
             profileImageView.layer.borderColor = UIColor.systemGreen.cgColor
