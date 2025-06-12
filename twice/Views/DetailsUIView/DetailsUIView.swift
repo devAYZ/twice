@@ -67,6 +67,7 @@ struct DetailsUIView: UIViewRepresentable {
         
         private func setupProfileImage(imageURL: String) {
             profileImageView.translatesAutoresizingMaskIntoConstraints = false
+            profileImageView.loadImage(from: imageURL, placeholder:  UIImage(systemName: "person.fill"))
             profileImageView.layer.cornerRadius = 50
             profileImageView.layer.borderWidth = 2
             profileImageView.layer.borderColor = UIColor.systemGreen.cgColor
