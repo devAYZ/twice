@@ -10,7 +10,7 @@ import SwiftUI
 struct ListView: View {
 
     // MARK: Properties
-    @ObservedObject private var vmListView = ListViewModel()
+    @ObservedObject private var vmListView = ListViewModel(shouldUseCache: true)
     
     var body: some View {
         NavigationView {

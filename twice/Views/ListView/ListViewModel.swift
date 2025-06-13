@@ -28,9 +28,12 @@ final class ListViewModel: ObservableObject {
     @Published var filteredListItems = [GithubUsersResponse]()
     @Published var searchText: String = ""
     
+    private var shouldUseCache: Bool
+    
     // MARK: Initialiser
-    init(networkService: TwiceNetworkServiceProtocol = TwiceNetworkService()) {
+    init(networkService: TwiceNetworkServiceProtocol = TwiceNetworkService(), shouldUseCache: Bool = true) {
         self.networkService = networkService
+        self.shouldUseCache = shouldUseCache
     }
     
     func attachView(view: ListViewDelegate) {
@@ -38,10 +41,9 @@ final class ListViewModel: ObservableObject {
     }
     
     func getListItems() {
-        if let cachedList = CacheManager.shared
-            .retrieveCachedObject(object: [GithubUsersResponse].self, key: .listItems) {
-            listItems = cachedList
-            filteredListItems = listItems
+        if shouldUseCache,
+           let cachedList = CacheManager.shared.retrieveCachedObject(object: [GithubUsersResponse].self, key: .listItems) {
+            (listItems, filteredListItems) = (cachedList, cachedList)
             return
         }
         
