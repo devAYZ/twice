@@ -28,7 +28,7 @@ final class ListViewModel: ObservableObject {
     @Published var filteredListItems = [GithubUsersResponse]()
     @Published var searchText: String = ""
     
-    private var shouldUseCache: Bool
+    var shouldUseCache: Bool
     
     // MARK: Initialiser
     init(networkService: TwiceNetworkServiceProtocol = TwiceNetworkService(), shouldUseCache: Bool = true) {

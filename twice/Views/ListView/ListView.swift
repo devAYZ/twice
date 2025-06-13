@@ -60,6 +60,7 @@ extension ListView {
             }
         }
         .refreshable {
+            vmListView.shouldUseCache = false
             vmListView.getListItems()
         }
     }
