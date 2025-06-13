@@ -8,6 +8,5 @@
 import Foundation
 
 public enum GithubEndpoints: String {
-    case test = "/test"
     case users = "/users"
 }

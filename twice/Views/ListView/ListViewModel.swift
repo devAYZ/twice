@@ -16,9 +16,6 @@ protocol ListViewDelegate {
 
 final class ListViewModel: ObservableObject {
     
-    // MARK: shared
-    static let shared = ListViewModel()
-    
     // MARK: Properties
     @Published var showLoader = false
     @Published var showAlert = false
@@ -31,15 +28,12 @@ final class ListViewModel: ObservableObject {
     @Published var filteredListItems = [GithubUsersResponse]()
     @Published var searchText: String = ""
     
-    // MARK: Initialiser
-    init(networkService: TwiceNetworkServiceProtocol = TwiceNetworkService()) {
-        self.networkService = networkService
-        
-        copyList()
-    }
+    var shouldUseCache: Bool
     
-    func copyList() {
-        filteredListItems = listItems
+    // MARK: Initialiser
+    init(networkService: TwiceNetworkServiceProtocol = TwiceNetworkService(), shouldUseCache: Bool = true) {
+        self.networkService = networkService
+        self.shouldUseCache = shouldUseCache
     }
     
     func attachView(view: ListViewDelegate) {
@@ -47,6 +41,12 @@ final class ListViewModel: ObservableObject {
     }
     
     func getListItems() {
+        if shouldUseCache,
+           let cachedList = CacheManager.shared.retrieveCachedObject(object: [GithubUsersResponse].self, key: .listItems) {
+            (listItems, filteredListItems) = (cachedList, cachedList)
+            return
+        }
+        
         view?.handleLoader(show: true)
         networkService?.makeNetworkCall(with: getListRequestObject()) { response in
             self.view?.handleLoader(show: false)

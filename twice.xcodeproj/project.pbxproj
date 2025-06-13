@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3AD20DBD2DDF0E7400F8E539 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3AD20DBC2DDF0E7400F8E539 /* README.md */; };
 		3AD20EEE2DE43F0000F8E539 /* twiceNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 3AD20EED2DE43F0000F8E539 /* twiceNetworking */; };
-		3AD20F862DE4AA9500F8E539 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3AD20F852DE4AA9500F8E539 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +72,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AD20F862DE4AA9500F8E539 /* Kingfisher in Frameworks */,
 				3AD20EEE2DE43F0000F8E539 /* twiceNetworking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,7 +144,6 @@
 			name = twice;
 			packageProductDependencies = (
 				3AD20EED2DE43F0000F8E539 /* twiceNetworking */,
-				3AD20F852DE4AA9500F8E539 /* Kingfisher */,
 			);
 			productName = twice;
 			productReference = 3AD20D8F2DDF0DBC00F8E539 /* twice.app */;
@@ -232,7 +229,6 @@
 			mainGroup = 3AD20D862DDF0DBC00F8E539;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				3AD20F842DE4AA9500F8E539 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3AD20D902DDF0DBC00F8E539 /* Products */;
@@ -608,26 +604,10 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		3AD20F842DE4AA9500F8E539 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.3.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
 		3AD20EED2DE43F0000F8E539 /* twiceNetworking */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = twiceNetworking;
-		};
-		3AD20F852DE4AA9500F8E539 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3AD20F842DE4AA9500F8E539 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
