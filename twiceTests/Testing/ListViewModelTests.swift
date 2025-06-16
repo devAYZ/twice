@@ -14,7 +14,7 @@ struct ListViewModelTests {
     // Static helper to create SUT for each test
     private static func makeSUT(apiFlow: MockNetworkServiceFlow?) -> (ListViewModel, MockListViewDelegate) {
         let networkService = MockNetworkService(apiFlow: apiFlow)
-        let viewModel = ListViewModel(networkService: networkService)
+        let viewModel = ListViewModel(networkService: networkService, shouldUseCache: false)
         let viewDelegate = MockListViewDelegate()
         viewModel.attachView(view: viewDelegate)
         return (viewModel, viewDelegate)
